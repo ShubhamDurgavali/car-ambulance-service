@@ -1,36 +1,42 @@
 import { FlatList, TouchableOpacity, Text, Image, View } from "react-native";
 import React from "react";
 import tw from "tailwind-react-native-classnames";
+import { Icon } from "react-native-elements";
+import { useNavigation } from "@react-navigation/native";
 
 const data = [
   {
     id: "123",
     title: "Get a ride!",
-    image: "http://bit.ly/3sXS72D",
-    screen: "Mapscreen",
+    image: "https://links.papareact.com/3pn",
+    screen: "MapScreen",
   },
   {
     id: "456",
     title: "Order food!",
-    image: "http://bit.ly/3sXS72D",
+    image: "https://links.papareact.com/28w",
     screen: "EatsScreen",
   },
 ];
 
 const NavOptions = () => {
+
+  const navigation = useNavigation();
+
   return (
     <FlatList
       data={data}
-      style={tw`ml-5`}
       horizontal
       keyExtractor={(item) => item.id}
       renderItem={({ item }) => (
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate(item.screen)}  style={tw`p-2 pl-6 bg-gray-200 w-40 pb-8 pt-4 m-2`}>
           <View>
             <Image
-              style={{ width: 120, height: 120, resizeMode: "contain", backgroundColor: "red" }}
-              source={{uri: item.image}}
+              style={{ width: 120, height: 120, resizeMode: "contain" }}
+              source={{ uri: item.image }}
             />
+            <Text style={tw`mt-2 text-lg font-semibold`}>{item.title}</Text>
+            <Icon style={tw`p-2 bg-black rounded-full w-10 mt-4`} type="antdesign" color="white" name="arrowright" />
           </View>
         </TouchableOpacity>
       )}
